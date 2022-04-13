@@ -1,0 +1,27 @@
+{
+  "name": "vite-pinia-admin",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "cross-env vite --mode development",
+    "production": "cross-env vite --mode production",
+    "build": "vite build",
+    "build:dev": "cross-env vite build --mode development",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "pinia": "^2.0.13",
+    "vue": "^3.2.25",
+    "vue3-lazy": "^1.0.0-alpha.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.0",
+    "cross-env": "^7.0.3",
+    "cssnano": "^5.1.7",
+    "less": "^4.1.2",
+    "postcss-import": "^14.1.0",
+    "vite": "^2.9.0",
+    "vite-plugin-compression": "^0.5.1",
+    "vue-baidu-analytics": "^2.2.0"
+  }
+}
