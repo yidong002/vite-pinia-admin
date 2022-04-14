@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import viteCompression  from 'vite-plugin-compression' // gzip 压缩代码
 import postcssImport from 'postcss-import'
 import cssnano from 'cssnano'
+import { visualizer } from 'rollup-plugin-visualizer'
 import path from 'path'
 
 
@@ -11,6 +12,7 @@ import path from 'path'
 export default defineConfig({
   server: {
     port: 3000,
+    open: false,
     proxy: {
       '/api': {
         target: 'http://localhost:8080',
@@ -41,6 +43,7 @@ export default defineConfig({
   plugins: [
     vue(),
     viteCompression(),
+    visualizer(),
     postcssImport,
     cssnano
   ]

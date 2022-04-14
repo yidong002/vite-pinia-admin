@@ -15,4 +15,8 @@ app.use(createPinia())
 
 app.mount('#app')
 
-console.log('hello world', import.meta.env.VITE_APP_TITLE)
+console.log('hello world', import.meta.env.MODE, '当前环境')
+console.log('hello world', import.meta.env.VITE_APP_TITLE, '当前环境90909')
+console.log('hello world', import.meta.env.PROD, '判断当前是否是生产环境')
+console.log('hello world', import.meta.env.DEV, '判断当前是否是开发环境')
+console.log(import.meta.env.VITE_API_URL, '当前环境的baseUrl')
