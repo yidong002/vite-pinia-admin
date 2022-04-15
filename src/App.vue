@@ -1,14 +1,35 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-// import HelloWorld from './components/HelloWorld.vue'
-import HelloWorld from '@/components/HelloWorld.vue'
+import { toRef, reactive, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { useMainStore } from '@/pinia/main'
 
+const mainStore = useMainStore()
+
+const route = useRoute()
+const state = reactive({
+  includeList: [],
+})
+
+// 缓存白名单
+watch(() => route, (newVal, oldVal) => {
+  newVal.meta.keepAlive && 
+  state.includeList.includes(newVal.name) 
+  && mainStore.includeList.push(newVal.name) 
+
+  state.includeList = [...mainStore.includeList]
+
+}, { deep: true })
+
+const { includeList } = toRef(state)
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+<router-view/>
+  <!-- <router-view v-slot="{ Component }">
+    <keep-alive :include="includeList">
+      <Component :is="Component"/>
+    </keep-alive>
+  </router-view> -->
 </template>
 
 <style>
@@ -18,6 +39,13 @@ import HelloWorld from '@/components/HelloWorld.vue'
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  overflow: hidden;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: grey;
+
 }
 </style>
