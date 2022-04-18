@@ -10,7 +10,7 @@
             theme="dark"
             @click="toPages"
           >
-            <a-sub-menu key="sub1">
+            <a-sub-menu key="sub1" @titleClick="toPages({key:'demo1'})">
               <template #title>
                 <span>
                   <user-outlined />

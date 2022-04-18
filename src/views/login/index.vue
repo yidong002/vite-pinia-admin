@@ -2,7 +2,7 @@
  * @Author: mikey.zhaopeng 
  * @Date: 2022-04-15 11:30:03 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2022-04-15 15:20:54
+ * @Last Modified time: 2022-04-15 18:02:30
  * @Description: 登录页面
  */
 <template>
@@ -71,7 +71,7 @@ const login = () => {
 }
 // 注册
 const register = () => {
-
+    router.push('/register')
 }
 
 const { loginForm } = toRefs(state)

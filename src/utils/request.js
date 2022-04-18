@@ -1,4 +1,6 @@
 import axios from 'axios';
+import qs from 'qs'
+import { message } from 'ant-design-vue';
 
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -27,7 +29,7 @@ service.interceptors.response.use(
          */
         const res = response.data;
         if (res.code !== 20000) {
-            Message({
+            message({
                 message: res.message,
                 type: 'error',
                 duration: 5 * 1000
@@ -36,16 +38,41 @@ service.interceptors.response.use(
         } else {
             return response.data;
         }
+    }, error => {
+        console.log('err' + error); // for debug
+        message({
+            message: error.message,
+            type: 'error',
+            duration: 5 * 1000
+        });
+        return Promise.reject(error);
     }
 );
-
+const ContentType = {
+    'fomdata': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'json': 'application/json; charset=UTF-8',
+    'mult': 'multipart/form-data'
+}
 // promise封装
-const request = (url, method, data) => {
+const request = (
+    url = '', 
+    method = 'get',
+    data = {}, 
+    params = {}, 
+    baseURL = 'main', 
+    headers, 
+    type) => {
+    // 请求参数处理
+    let baseurl = baseURL || BASE_URL || ''
+    headers['Content-Type'] = ContentType[type] || ContentType['urlcoded']
     return new Promise((resolve, reject) => {
         service({
+            baseURL: baseurl,
+            headers: headers,
             url,
             method,
-            data
+            data: type === 'formdata' ? qs.stringify(data) : data,
+            params
         }).then(res => {
             resolve(res);
         }).catch(err => {
